@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "zmq.hpp"
 #include "json.hpp"
+#include "repo.hpp"
 
 using json = nlohmann::json;
 

@@ -4,6 +4,8 @@ int main(int argc, char const *argv[]) {
   try {
     std::cout << "...starting raw data agent...\n";
 
+    repo repo;
+
     zmq::context_t context (1);
     zmq::socket_t subscriber (context, ZMQ_SUB);
     subscriber.connect("tcp://localhost:5555");
@@ -17,6 +19,8 @@ int main(int argc, char const *argv[]) {
       auto j = json::parse(msg);
 
       std::cout << j << "\n";
+      
+      repo.store_measurement(j);
     }
   } catch(const std::exception& e) {
     std::cerr << e.what() << '\n';
