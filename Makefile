@@ -25,7 +25,7 @@ $(PROG_DIR)test-uuid: Makefile $(addprefix $(BUILD_DIR), $(test-uuid_OBJS)) | $(
 	$(LINK.cpp) -g -o $@ $(filter %.o, $^) $(test-uuid_LDFLAGS)
 
 sync-source:
-	rsync -arvz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --exclude=bld --exclude=prog --progress . hc2:~/raw-data-db-agent
+	rsync -arvz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" --exclude=.git --exclude=bld --exclude=prog --progress . hc2:~/raw-data-db-agent
 
 $(BUILD_DIR):
 	mkdir $(BUILD_DIR)

@@ -14,15 +14,20 @@ int main(int argc, char const *argv[]) {
 
     while (true) {
       subscriber.recv(&update);
-      std::string msg(static_cast<char*>(update.data()), update.size());
+      std::string msg(update.data<char>(), update.size());
+    
+      try {
+        std::cout << msg << "\n";
 
-      auto j = json::parse(msg);
+        auto j = json::parse(msg);
 
-      std::cout << j << "\n";
-      
-      repo.store_measurement(j);
+        repo.store_measurement(j);
+      } catch (const std::exception& e) {
+        std::cerr << "error processing message: " << msg << "\n";
+        std::cerr << e.what() << '\n';
+      }
     }
-  } catch(const std::exception& e) {
+  } catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
     return 1;
   }
