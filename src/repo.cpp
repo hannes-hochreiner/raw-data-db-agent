@@ -43,6 +43,15 @@ void repo::store_measurement(json measurement) {
       (pt_humidity__id)
       (sensor__id)
       ((float)measurement["message"]["humidity"]).exec();
+    
+    if (!measurement["message"]["pressure"].is_null()) {
+      w.prepared("new_parameter")
+        (std::string(get_uuid()))
+        (measurement__id)
+        (pt_humidity__id)
+        (sensor__id)
+        ((float)measurement["message"]["pressure"]).exec();
+    }
     w.commit();
   } catch (...) {
     w.abort();
