@@ -23,6 +23,7 @@ void repo::store_measurement(json measurement) {
     std::string equipment__id = get_or_create_equipment__id(w, measurement["message"]["mcu_id"]);
     std::string pt_temperature__id = get_or_create_parameter_type__id(w, "temperature");
     std::string pt_humidity__id = get_or_create_parameter_type__id(w, "humidity");
+    std::string pt_pressure__id = get_or_create_parameter_type__id(w, "pressure");
     std::string measurement__id = get_uuid();
 
     w.prepared("new_measurement")
@@ -48,7 +49,7 @@ void repo::store_measurement(json measurement) {
       w.prepared("new_parameter")
         (std::string(get_uuid()))
         (measurement__id)
-        (pt_humidity__id)
+        (pt_pressure__id)
         (sensor__id)
         ((float)measurement["message"]["pressure"]).exec();
     }
