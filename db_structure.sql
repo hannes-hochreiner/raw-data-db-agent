@@ -32,3 +32,6 @@ CREATE TABLE parameter (
   _sensor_id uuid REFERENCES sensor (_id),
   val float
 );
+
+create index measurement_ts on measurement(ts);
+create index parameter_measurement_id on parameter(_measurement_id);
